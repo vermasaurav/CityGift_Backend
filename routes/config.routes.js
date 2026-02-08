@@ -1,5 +1,5 @@
 import express from "express";
-import SiteConfig from "../models/SiteConfig.js";
+import SiteConfig from "../models/siteConfig.js";
 
 const router = express.Router();
 
