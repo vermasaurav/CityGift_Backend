@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import categoryRoutes from "./routes/category.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import configRoutes from "./routes/config.routes.js";
+import flashRoutes from "./routes/flash.route.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,9 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/config", configRoutes);
+app.use("/api/flash", flashRoutes);
+
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected bhi"))
