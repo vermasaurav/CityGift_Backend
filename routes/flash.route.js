@@ -67,7 +67,7 @@
 
 import express from "express";
 import Flash from "../models/flashImage.js";
-
+import { upload } from "../middleware/upload.js";
 
 const router = express.Router();
 
