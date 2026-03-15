@@ -15,7 +15,7 @@ app.use(cors({
 
 
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/config", configRoutes);
@@ -24,7 +24,7 @@ app.use("/api/flash", flashRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected bhi"))
+  .then(() => console.log("MongoDB Connected bhai"))
   .catch(err => console.log(err));
 
 app.listen(5000, () =>

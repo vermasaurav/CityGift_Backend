@@ -43,7 +43,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
       insta:req.body.insta,
       subcategory: req.body.subcategory,
       stock: req.body.stock === "true",
-      image: req.file.filename
+      image: req.file.path
     });
 
     await product.save();
@@ -94,7 +94,7 @@ router.put("/:id", upload.single("image"), async (req, res) => {
   const updateData = { ...req.body };
 
   if (req.file) {
-    updateData.image = req.file.filename;
+    updateData.image = req.file.path;
   }
 
   const updated = await Product.findByIdAndUpdate(
