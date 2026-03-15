@@ -43,7 +43,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
       insta:req.body.insta,
       subcategory: req.body.subcategory,
       stock: req.body.stock === "true",
-      image: req.file.path
+       image: req.file ? req.file.path : ""
     });
 
     await product.save();
