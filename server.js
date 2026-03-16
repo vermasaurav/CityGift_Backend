@@ -20,7 +20,8 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/config", configRoutes);
 app.use("/api/flash", flashRoutes);
-
+console.log("Cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
+console.log("API key:", process.env.CLOUDINARY_API_KEY);
 
 mongoose
   .connect(process.env.MONGO_URI)

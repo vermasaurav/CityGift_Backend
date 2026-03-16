@@ -33,6 +33,10 @@ router.post("/", async (req, res) => {
 /* ================= ADD PRODUCT ================= */
 router.post("/add", upload.single("image"), async (req, res) => {
   try {
+
+    
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
     const product = new Product({
       name: req.body.name,
       price: req.body.price,
@@ -43,13 +47,18 @@ router.post("/add", upload.single("image"), async (req, res) => {
       insta:req.body.insta,
       subcategory: req.body.subcategory,
       stock: req.body.stock === "true",
-       image: req.file ? req.file.path : ""
+      image: req.file ? req.file.path : ""
     });
 
     await product.save();
     res.json(product);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+     console.log("SERVER ERROR:", err);   // ⭐ important
+
+    res.status(500).json({
+      message: "Product save failed",
+      error: err.message
+    });
   }
 });
 
@@ -91,19 +100,35 @@ router.delete("/:id", async (req, res) => {
 
 /* ================= UPDATE PRODUCT ================= */
 router.put("/:id", upload.single("image"), async (req, res) => {
-  const updateData = { ...req.body };
+  try {
 
-  if (req.file) {
-    updateData.image = req.file.path;
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
+    const updateData = { ...req.body };
+
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
+
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+
+    res.json(updated);
+
+  } catch (err) {
+
+    console.log("UPDATE ERROR:", err);
+
+    res.status(500).json({
+      message: "Update failed",
+      error: err.message
+    });
+
   }
-
-  const updated = await Product.findByIdAndUpdate(
-    req.params.id,
-    updateData,
-    { new: true }
-  );
-
-  res.json(updated);
 });
 
 export default router;
